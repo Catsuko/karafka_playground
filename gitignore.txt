@@ -1,7 +1,7 @@
 *.gem
 *.rbc
 /.config
-/.idea
+/.idea/
 /coverage/
 /InstalledFiles
 /pkg/
@@ -10,7 +10,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
-/log
+/log/
 
 # Used by dotenv library to load environment variables.
 # .env
