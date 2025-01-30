@@ -1,5 +1,18 @@
 # Kafka Playground
 
+Play with Kafka & Ruby with the [Karafka gem](https://github.com/karafka/karafka). In this project, we build a program
+that consumes a stream of user view data and aggregates it into total counts per user.
+
+Our pretend requirements are:
+- We want to store a record per user for their total hits
+- We want to batch our database queries to avoid locking bottlenecks
+
+These project is based on the talk
+[Processing streaming data at scale with Kafka](https://www.youtube.com/watch?v=-NMDqqW1uCE) which gives the same
+example scenario as a demonstration. The code used in that talk can be found
+[here](https://github.com/appsignal/kafka-talk-demo/tree/master?tab=readme-ov-file) however I found it hard to run
+that project given how old it is.
+
 ## Setup
 
 1. Run Kafka using docker
@@ -38,12 +51,7 @@ bundle exec karafka topics reset
 
 ## Running the App
 
-Our pretend requirements are:
-- We track every time a user hits one of our web pages
-- We want to store a record per user for their total hits
-- We want to batch our database queries to avoid lock bottlenecks
-
-To see how our app achieves this with Kafka, first produce some fake messages with the following rake task:
+First produce some fake messages with the following rake task:
 
 ```shell
 bundle exec rake producer:produce_views
