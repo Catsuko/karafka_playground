@@ -4,14 +4,17 @@
 # perform slow db updates.
 class UpdateViewCountsConsumer < ApplicationConsumer
   def consume
-    views = messages.payloads.each_with_object(Hash.new(0)) { |entry, hash| hash[entry["id"]] += entry["count"] }
+    views = messages.payloads.each_with_object(Hash.new(0)) do |entry, hash|
+      hash[entry["id"]] += entry["count"]
+    end
+
     puts "Updating: #{views.inspect}"
 
     update_db(views)
     add_to_global_results(views)
   end
 
-  def update_db(views)
+  def update_db(_views)
     sleep rand
   end
 
