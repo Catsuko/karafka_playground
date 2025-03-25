@@ -30,14 +30,14 @@ class KarafkaApp < Karafka::App
     total_queries = $results.delete(:total_queries).to_i
     puts <<~RESULTS
 
-    🏁 Views 🏁
+    🏁 Results 🏁
 
-      #{$results.keys.sort.map { |id| "#{id.to_s.ljust(2)}: #{$results.fetch(id)}" }.join("\n") }
+    #{$results.keys.sort.map { |id| "#{id.to_s.ljust(2)}: #{$results.fetch(id)}" }.join("\n") }
 
-      Totals
-        Users:   #{$results.keys.size}
-        Views:   #{$results.values.sum}
-        Queries: #{total_queries}
+    Totals
+      Users:   #{$results.keys.size}
+      Views:   #{$results.values.sum}
+      Queries: #{total_queries}
 
     RESULTS
   end
