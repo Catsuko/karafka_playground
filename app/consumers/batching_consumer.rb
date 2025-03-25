@@ -17,7 +17,7 @@
 #
 
 class BatchingConsumer < ApplicationConsumer
-  def initialize(group_by: 'id', receiver: 'batched_views')
+  def initialize(group_by: 'id', receiver: 'views')
     @buffer = Hash.new(0)
     @group_by = group_by
     @receiver = receiver

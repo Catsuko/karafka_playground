@@ -4,12 +4,19 @@
 # perform slow db updates.
 class UpdateViewCountsConsumer < ApplicationConsumer
   def consume
-    update_view_counts(messages.payloads)
+    views = messages.payloads.each_with_object(Hash.new(0)) { |entry, hash| hash[entry["id"]] += entry["count"] }
+    puts "Updating: #{views.inspect}"
+
+    update_db(views)
+    add_to_global_results(views)
   end
 
-  def update_view_counts(views)
-    update_query = views.each_with_object(Hash.new(0)) { |entry, hash| hash[entry["id"]] += entry["count"] }
-    puts "Update DB: #{update_query.inspect}"
+  def update_db(views)
     sleep rand
+  end
+
+  def add_to_global_results(views)
+    views.each { |id, count| $results[id] += count }
+    $results[:total_queries] += 1
   end
 end
