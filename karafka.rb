@@ -29,13 +29,13 @@ class KarafkaApp < Karafka::App
   )
 
   routes.draw do
-      topic :views do
+      topic :raw_views do
         config(partitions: 5, 'cleanup.policy': 'delete')
         consumer BatchingConsumer
       end
-      topic :batched_views do
+      topic :views do
         config(partitions: 5, 'cleanup.policy': 'delete')
-        consumer PretendDbConsumer
+        consumer UpdateViewCountsConsumer
       end
   end
 end

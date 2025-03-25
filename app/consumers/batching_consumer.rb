@@ -17,10 +17,10 @@
 #
 
 class BatchingConsumer < ApplicationConsumer
-  def initialize(group_by: 'id', topic: 'batched_views')
+  def initialize(group_by: 'id', receiver: 'batched_views')
     @buffer = Hash.new(0)
     @group_by = group_by
-    @topic = topic
+    @receiver = receiver
   end
 
   def consume
@@ -44,7 +44,7 @@ class BatchingConsumer < ApplicationConsumer
     return if @buffer.empty?
 
     batched_messages = @buffer.map do |id, count|
-      { topic: @topic, key: id.to_s, payload: { id: id, count: count }.to_json }
+      { topic: @receiver, key: id.to_s, payload: { id: id, count: count }.to_json }
     end
 
     ::Karafka.producer.produce_many_async(batched_messages)
